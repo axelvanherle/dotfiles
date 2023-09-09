@@ -1,7 +1,7 @@
 # My aliases
 alias ls="ls --color"
 alias l="ls -l"
-alias la="ls -a"
+alias la="ls -A"
 alias ll="ls -l"
 alias ga="git add ."
 alias gp="git push"
