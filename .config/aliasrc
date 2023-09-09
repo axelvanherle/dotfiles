@@ -2,6 +2,7 @@
 alias ls="ls --color"
 alias l="ls -l"
 alias la="ls -a"
+alias ll="ls -l"
 alias ga="git add ."
 alias gp="git push"
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
