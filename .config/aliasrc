@@ -1,4 +1,6 @@
 # My aliases
+#
+# ls
 alias ls="ls --color"
 alias la="ls -A"
 alias l="ls -l"
@@ -6,6 +8,7 @@ alias ll="ls -alF"
 alias lt="ls -lt"
 alias lS="ls -lS"
 
+# git
 alias ga="git add ."
 alias gs="git status"
 alias gp="git push"
@@ -16,5 +19,8 @@ gca() {
 gc() {
     git commit -m "$@"
 }
-# For dotfiles
+	# For dotfiles
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+
+# newsboat
+alias nb="newsboat"
