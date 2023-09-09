@@ -1,16 +1,20 @@
 # My aliases
 alias ls="ls --color"
-alias l="ls -l"
 alias la="ls -A"
-alias ll="ls -l"
+alias l="ls -l"
+alias ll="ls -alF"
+alias lt="ls -lt"
+alias lS="ls -lS"
+
 alias ga="git add ."
+alias gs="git status"
 alias gp="git push"
 alias gpl="git pull"
-alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-
 gca() {
     git commit -am "$@"
 }
 gc() {
     git commit -m "$@"
 }
+# For dotfiles
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
