@@ -1,0 +1,14 @@
+# My aliases
+alias ls="ls --color"
+alias l="ls -l"
+alias la="ls -a"
+alias ga="git add ."
+alias gp="git push"
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+
+gca() {
+    git commit -am "$@"
+}
+gc() {
+    git commit -m "$@"
+}

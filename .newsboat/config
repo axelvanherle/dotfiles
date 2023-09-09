@@ -1,0 +1,55 @@
+# THEME
+	include /usr/share/doc/newsboat/contrib/colorschemes/solarized-dark
+
+# MISC
+	# Auto reload every feed using 12 threads.
+	auto-reload yes
+	reload-threads 12
+	reload-time 15
+	# Highlight feeds with a header
+	highlight feedlist "---.*---" yellow default bold
+	# Change title formats
+	feedlist-title-format "Your feeds ---| %u unread, %t total |--%>--| %N %V |---"
+	articlelist-title-format "Your articles ---| %T |---|%u unread, %t total|--%>--| %N %V |---"
+
+# PODCASTS
+	# Download path
+	download-path ~/Music/Podcasts/%n
+# BINDS
+	# switch o and O binds
+	unbind-key o
+	unbind-key O
+	bind-key o open-in-browser-and-mark-read 
+	bind-key O  open-in-browser
+	# a to toggle article as read
+	unbind-key a
+	bind-key a toggle-article-read 
+	
+	# toggle automatic downloading of podcasts
+	unbind-key N
+	bind-key N pb-toggle-download-all 
+
+# VIM BINDS
+	# jk - move up/down
+	unbind-key j
+	unbind-key k
+	bind-key j down
+	bind-key k up
+
+	# hl - move in/out of feeds/articles
+	bind-key h quit
+	bind-key l open
+
+	# q quits the program
+	unbind-key q
+	bind-key q hard-quit
+
+	# g/G to go to top/bottom
+	unbind-key g
+	unbind-key G
+	bind-key g home
+	bind-key G end
+	
+	# f to follow links (like qutebrowser)
+	unbind-key f
+	bind-key f goto-url
