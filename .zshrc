@@ -1,37 +1,36 @@
-# Luke's config for the Zoomer Shell
-# With small changes made by me to customize it to my liking.
+# ---
+# xel's zsh config. Started from Luke Smith's config, but alterted it to my liking.
+# ---
 
-# Enable colors and change prompt:
+# - Basic setup - #
 autoload -U colors && colors
+export EDITOR=nvim
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
-# History in cache directory:
+# - History configuration - #
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 setopt appendhistory
 
-# Basic auto/tab complete:
+# - Autocomplete configuration - #
 autoload -U compinit
 zstyle ':completion:*' menu select
-# Case insensitive tabbing.
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-# vi mode
+# - VI Mode configuration - #
 bindkey -v
 export KEYTIMEOUT=1
-
-# Use vim keys in tab complete menu:
+	# Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
-
-# Check which clipboard utility is available
+	# Check which clipboard utility is available
 if command -v wl-copy > /dev/null 2>&1; then
     copy_to_clipboard() {
         echo "$1" | wl-copy
@@ -88,6 +87,7 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+# - Dir navigation - #
 # Use lf to switch directories and bind it to ctrl-o
 lfcd () {
     tmp="$(mktemp)"
@@ -100,23 +100,16 @@ lfcd () {
 }
 bindkey -s '^o' 'lfcd\n'
 
-# Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-
-# Load aliases and shortcuts if existent.
+# - Load extenal configuration - #
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
-# Use fzf for history
+# - Plugins - #
+# zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
-
-export EDITOR=nvim
-
-# Load autosuggestions
+# autosuggestions
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Load zsh-syntax-highlighting; should be last.
+# zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
