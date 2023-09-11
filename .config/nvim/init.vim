@@ -1,8 +1,6 @@
-" Relative numbers
 :set number relativenumber
-
-" Set softwrap
 :set wrap linebreak nolist
+:set ttyfast
 
 " Use system clipboard
 if has("unnamedplus")
@@ -22,11 +20,13 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}	
+
 call plug#end()
 
 " NERDTree Config
 nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
+
 " Auto-close NERDTree when a file is opened
 let g:NERDTreeQuitOnOpen = 1
 
