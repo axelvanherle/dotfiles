@@ -1,3 +1,9 @@
+" - xel's nvim config - "
+
+" change leader key to ,
+let mapleader=","
+
+" basic config
 :set number relativenumber
 :set wrap linebreak nolist
 :set ttyfast
@@ -9,7 +15,7 @@ else
 	set clipboard=unnamed
 endif
 
-"Navigate windows using Vim binds
+" Navigate windows using Vim binds
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
@@ -20,13 +26,12 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}	
-
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()
 
 " NERDTree Config
 nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
-
 " Auto-close NERDTree when a file is opened
 let g:NERDTreeQuitOnOpen = 1
 
