@@ -13,6 +13,10 @@ nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
+nnoremap <C-Up> :resize -5<CR>
+nnoremap <C-Down> :resize +5<CR>
+nnoremap <C-Left> :vertical resize -5<CR>
+nnoremap <C-Right> :vertical resize +5<CR>
 " Use system clipboard
 if has("unnamedplus")
     set clipboard=unnamedplus
