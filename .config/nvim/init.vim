@@ -8,6 +8,7 @@ set ttyfast                       " Optimize for fast terminal connections
 set expandtab
 set tabstop=4
 set shiftwidth=4
+
 " Window Navigation
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
@@ -17,6 +18,11 @@ nnoremap <C-Up> :resize -5<CR>
 nnoremap <C-Down> :resize +5<CR>
 nnoremap <C-Left> :vertical resize -5<CR>
 nnoremap <C-Right> :vertical resize +5<CR>
+
+" Terminal 
+nnoremap <C-t> :rightbelow split +terminal<CR>
+tnoremap <C-q> <C-\><C-n>
+
 " Use system clipboard
 if has("unnamedplus")
     set clipboard=unnamedplus
