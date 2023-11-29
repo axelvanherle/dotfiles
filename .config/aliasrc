@@ -26,4 +26,4 @@ alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias nb="newsboat"
 
 # swap ESC and caps in X11
-alias swapcap /usr/bin/setxkbmap -option "caps:swapescape"
+alias swapcap='/usr/bin/setxkbmap -option "caps:swapescape"'
