@@ -49,3 +49,4 @@ nmap <leader>ff :call CocAction('format')<CR>
 " fzf Configuration
 nnoremap <leader>fl :Lines<CR>
 nnoremap <C-x> :vsplit<CR>:FZF<CR>
+nnoremap <C-z> :split<CR>:FZF<CR>
