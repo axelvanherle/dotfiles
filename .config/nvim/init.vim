@@ -50,3 +50,28 @@ nmap <leader>ff :call CocAction('format')<CR>
 nnoremap <leader>fl :Lines<CR>
 nnoremap <C-x> :vsplit<CR>:FZF<CR>
 nnoremap <C-z> :split<CR>:FZF<CR>
+
+" Auto compile LaTeX on save
+autocmd BufWritePost *.tex silent! call CompileLatex()
+function! CompileLatex()
+    let l:file = expand('%:p')
+    let l:compiler = 'pdflatex' " or your preferred LaTeX compiler
+    execute 'silent !' . l:compiler . ' ' . l:file
+    redraw!
+endfunction
+
+" Vimtex settings for live preview
+let g:vimtex_view_method = 'zathura' " Change 'zathura' to your preferred viewer
+let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_compiler_latexmk = {
+\ 'continuous': 1,
+\ 'callback': 1,
+\ 'build_dir': '',
+\ 'background': 1,
+\ 'options': [
+\   '-pdf',
+\   '-interaction=nonstopmode',
+\   '-synctex=1',
+\ ],
+\}
