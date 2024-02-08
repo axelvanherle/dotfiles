@@ -1,0 +1,42 @@
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+# My aliases
+# ls
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+    la="ls -A" \
+    l="ls -l" \
+    ll="ls -alF" \
+    lt="ls -lt" \
+    lS="ls -lS"
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	bc="bc -ql" \
+	rsync="rsync -vrPlu" \
+	mkd="mkdir -pv"
+
+# git
+alias \
+    ga="git add ." \
+    gs="git status" \
+    gp="git push" \
+    gpl="git pull"
+gca() {
+    git commit -am "$@"
+}
+gc() {
+    git commit -m "$@"
+}
+
+# For dotfiles
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+
+# newsboat
+alias nb="newsboat"
+
+# swap ESC and caps in X11
+alias swapcap='/usr/bin/setxkbmap -option "caps:swapescape"'

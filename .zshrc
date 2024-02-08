@@ -1,17 +1,31 @@
 # ---
-# xel's zsh config. Started from Luke Smith's config, but alterted it to my liking.
+# Axel's zsh config. Started from Luke Smith's config, but alterted it to my liking.
 # ---
 
 # - Basic setup - #
 autoload -U colors && colors
-export EDITOR=nvim
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+export EDITOR=nvim
+
+# - Load extenal configuration - #
+[ -f "$HOME/.config/shell/aliasrc" ] && source "$HOME/.config/shell/aliasrc"
 
 # - History configuration - #
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=10000000
+SAVEHIST=10000000
 HISTFILE=~/.zsh_history
 setopt appendhistory
+
+# - Plugins - #
+# zsh
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+# autosuggestions
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# zsh-syntax-highlighting; should be last.
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export PATH="$(go env GOPATH)/bin:$PATH"
 
 # - Autocomplete configuration - #
 autoload -U compinit
@@ -49,20 +63,16 @@ else
     echo "No clipboard utility found! Install xclip if on X11, wl-clipboard if on wayland"
     return
 fi
-
 function yank-line-to-clipboard() {
     copy_to_clipboard "$BUFFER"
     zle reset-prompt
 }
-
 function paste-from-clipboard() {
     local clipboard_content=$(paste_from_clipboard)
     LBUFFER+=$clipboard_content
 }
-
 zle -N yank-line-to-clipboard
 zle -N paste-from-clipboard
-
 bindkey -M vicmd 'y' yank-line-to-clipboard
 bindkey -M vicmd 'p' paste-from-clipboard
 
@@ -99,18 +109,3 @@ lfcd () {
     fi
 }
 bindkey -s '^o' 'lfcd\n'
-
-# - Load extenal configuration - #
-[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-
-# - Plugins - #
-# zsh
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-# autosuggestions
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-# zsh-syntax-highlighting; should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-export PATH="$(go env GOPATH)/bin:$PATH"
