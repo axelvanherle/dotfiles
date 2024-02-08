@@ -2,10 +2,12 @@
 # Axel's zsh config. Started from Luke Smith's config, but alterted it to my liking.
 # ---
 
+export EDITOR=nvim
+
 # - Basic setup - #
+precmd() { print -Pn "\e]2;%~\a" }
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-export EDITOR=nvim
 
 # - Load extenal configuration - #
 [ -f "$HOME/.config/shell/aliasrc" ] && source "$HOME/.config/shell/aliasrc"
@@ -104,8 +106,24 @@ lfcd () {
     lf -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
-        rm -f "$tmp"
+        \rm -f "$tmp"
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
 bindkey -s '^o' 'lfcd\n'
+
+# Used to copy files to clipboard
+copyfile() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: copyfile <filename>"
+        return 1
+    fi
+    if [[ "$XDG_SESSION_TYPE" == "wayland" && -x "$(command -v wl-copy)" ]]; then
+        wl-copy < "$1"
+    elif [[ -x "$(command -v xclip)" ]]; then
+        xclip -selection clipboard < "$1"
+    else
+        echo "No suitable clipboard utility found."
+        return 1
+    fi
+}
