@@ -41,4 +41,11 @@ alias nb="newsboat"
 # swap ESC and caps in X11
 alias swapcap='/usr/bin/setxkbmap -option "caps:swapescape"'
 # To make a gzip compressed tar file
-alias targz='tar -czvf'
+function targz() {
+    if [ -z "$1" ]; then
+        echo "Usage: targz <directory>"
+        return 1
+    fi
+
+    tar -czvf "$1.tar.gz" "$1"
+}
