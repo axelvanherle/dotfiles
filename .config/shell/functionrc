@@ -1,0 +1,127 @@
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        \rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+
+# To make a gzip compressed tar file
+function targz() {
+    if [ -z "$1" ]; then
+        echo "Usage: targz <directory>"
+        return 1
+    fi
+
+    tar -czvf "$1.tar.gz" "$1"
+}
+
+# To extract a gzip compressed tar file
+function untargz() {
+    if [ -z "$1" ]; then
+        echo "Usage: untargz <file.tar.gz>"
+        return 1
+    fi
+
+    if [[ ! -f "$1" ]]; then
+        echo "Error: '$1' is not a valid file."
+        return 1
+    fi
+
+    tar -xzvf "$1"
+}
+
+# To create a zip file
+function zipdir() {
+    if [ -z "$1" ]; then
+        echo "Usage: zipdir <directory>"
+        return 1
+    fi
+
+    if [[ ! -d "$1" ]]; then
+        echo "Error: '$1' is not a valid directory."
+        return 1
+    fi
+
+    zip -r "$1.zip" "$1"
+}
+
+# To extract a zip file
+function unzipfile() {
+    if [ -z "$1" ]; then
+        echo "Usage: unzipfile <file.zip>"
+        return 1
+    fi
+
+    if [[ ! -f "$1" ]]; then
+        echo "Error: '$1' is not a valid file."
+        return 1
+    fi
+
+    unzip "$1"
+}
+
+# Used to copy files to clipboard
+copyfile() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: copyfile <filename>"
+        return 1
+    fi
+    if [[ "$XDG_SESSION_TYPE" == "wayland" && -x "$(command -v wl-copy)" ]]; then
+        wl-copy < "$1"
+    elif [[ -x "$(command -v xclip)" ]]; then
+        xclip -selection clipboard < "$1"
+    else
+        echo "No suitable clipboard utility found."
+        return 1
+    fi
+}
+
+# Check which clipboard utility is available
+if command -v wl-copy > /dev/null 2>&1; then
+    copy_to_clipboard() {
+        echo "$1" | wl-copy
+    }
+    paste_from_clipboard() {
+        wl-paste
+    }
+elif command -v xclip > /dev/null 2>&1; then
+    copy_to_clipboard() {
+        echo "$1" | xclip -selection clipboard
+    }
+    paste_from_clipboard() {
+        xclip -selection clipboard -o
+    }
+else
+    echo "No clipboard utility found! Install xclip if on X11, wl-clipboard if on wayland"
+    return
+fi
+function yank-line-to-clipboard() {
+    copy_to_clipboard "$BUFFER"
+    zle reset-prompt
+}
+function paste-from-clipboard() {
+    local clipboard_content=$(paste_from_clipboard)
+    LBUFFER+=$clipboard_content
+}
+
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
