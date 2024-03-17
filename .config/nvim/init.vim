@@ -1,7 +1,7 @@
 " - xel's nvim config -
 
 " General Settings
-let mapleader=","                  " Change leader key to ,
+let mapleader=" "                  " Change leader key to ,
 set number relativenumber         " Show line numbers and relative numbers
 set wrap linebreak nolist         " Wrap lines neatly
 set ttyfast                       " Optimize for fast terminal connections
