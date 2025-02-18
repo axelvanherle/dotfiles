@@ -125,3 +125,17 @@ zle-line-init() {
     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
     echo -ne "\e[5 q"
 }
+
+crun() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: crun <filename.c>"
+        return 1
+    fi
+
+    filename="${1%.c}"  # Remove .c extension if provided
+    gcc -o "$filename" "$1" && ./"$filename"
+    
+    # Cleanup output file after execution (optional)
+    echo "-------------"
+    rm -f "$filename"
+}

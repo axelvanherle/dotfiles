@@ -59,3 +59,5 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # - Dir navigation - #
 bindkey -s '^o' 'lfcd\n'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
