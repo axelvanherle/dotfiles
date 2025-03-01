@@ -1,9 +1,3 @@
-shell = "/bin/zsh" 
-
-import = [
-# https://github.com/alacritty/alacritty-theme
-"~/.config/alacritty/themes/themes/argonaut.toml"
-]
 
 [font]
 size = 14.0
@@ -31,5 +25,15 @@ bindings = [
     
 [window]
 dimensions = { columns = 120, lines = 30 }
+
+[general]
+
+import = [
+# https://github.com/alacritty/alacritty-theme
+"~/.config/alacritty/themes/themes/argonaut.toml"
+]
+
+[terminal]
+shell = "/bin/zsh" 
 
 
