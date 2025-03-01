@@ -1,5 +1,4 @@
 " - xel's nvim config -
-
 " General Settings
 let mapleader=" "                  " Change leader key to ,
 set number relativenumber         " Show line numbers and relative numbers
@@ -39,6 +38,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'lervag/vimtex'
+Plug 'folke/tokyonight.nvim'
 call plug#end()
 
 " CoC Configuration
@@ -59,6 +59,8 @@ function! CompileLatex()
     execute 'silent !' . l:compiler . ' ' . l:file
     redraw!
 endfunction
+
+colorscheme tokyonight-storm
 
 " Vimtex settings for live preview
 let g:vimtex_view_method = 'zathura' " Change 'zathura' to your preferred viewer
