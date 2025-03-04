@@ -2,3 +2,4 @@ cache.db
 cache.db.lock
 history.cmdline
 queue
+.config/nvim/coc-settings.json
