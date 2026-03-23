@@ -11,3 +11,6 @@ cmd open &{{
 
 # mkdir command. See wiki if you want it to select created dir
 map a :push %mkdir<space>
+
+# make esc behave as q
+map <esc> quit
